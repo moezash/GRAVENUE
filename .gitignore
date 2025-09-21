@@ -22,32 +22,3 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-
-# Testing & Debug files
-test_*.php
-debug_*.php
-*_test.php
-*_debug.php
-
-# Shell scripts
-*.sh
-
-# Backup files
-*.backup
-*.bak
-*-backup.*
-*-old.*
-
-# Database files
-*.sqlite
-*.db
-gravenue_db
-
-# Temporary files
-*.tmp
-*.temp
-
-# Development documentation
-*_TESTING.md
-*_FIXES.md
-*_OPTIMIZATION.md

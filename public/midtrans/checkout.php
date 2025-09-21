@@ -8,9 +8,14 @@
 // Set header untuk JSON response
 header('Content-Type: application/json');
 
-// Konfigurasi Midtrans
-$server_key = 'your-server-key-here'; // Server Key Midtrans Sandbox
-$is_production = false; // Set ke true jika menggunakan production
+// Load Laravel environment untuk akses konfigurasi
+require_once __DIR__ . '/../../vendor/autoload.php';
+$app = require_once __DIR__ . '/../../bootstrap/app.php';
+$app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
+
+// Konfigurasi Midtrans dari Laravel config
+$server_key = config('midtrans.server_key'); // Server Key Midtrans dari .env
+$is_production = config('midtrans.is_production', false); // Set ke true jika menggunakan production
 $api_url = $is_production ? 'https://app.midtrans.com/snap/v1/transactions' : 'https://app.sandbox.midtrans.com/snap/v1/transactions';
 
 // Ambil data dari POST request

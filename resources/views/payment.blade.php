@@ -37,9 +37,13 @@
                             <span>
                                 @if($booking->start_time && $booking->end_time)
                                     @php
-                                        $startTime = \Carbon\Carbon::createFromFormat('H:i', $booking->start_time);
-                                        $endTime = \Carbon\Carbon::createFromFormat('H:i', $booking->end_time);
-                                        $hours = ceil($startTime->diffInMinutes($endTime) / 60);
+                                        try {
+                                            $startTime = \Carbon\Carbon::createFromFormat('H:i', $booking->start_time);
+                                            $endTime = \Carbon\Carbon::createFromFormat('H:i', $booking->end_time);
+                                            $hours = ceil($startTime->diffInMinutes($endTime) / 60);
+                                        } catch (Exception $e) {
+                                            $hours = 1; // Default to 1 hour if parsing fails
+                                        }
                                     @endphp
                                     {{ $hours }} jam
                                 @else

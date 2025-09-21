@@ -68,6 +68,51 @@ Route::post("/payment/notification", [PageController::class, "paymentNotificatio
     "payment.notification",
 );
 
+// Midtrans testing route
+Route::get("/test-midtrans", function () {
+    try {
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        \Midtrans\Config::$isProduction = config('midtrans.is_production');
+        \Midtrans\Config::$isSanitized = config('midtrans.is_sanitized');
+        \Midtrans\Config::$is3ds = config('midtrans.is_3ds');
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => 'TEST-' . time(),
+                'gross_amount' => 100000,
+            ],
+            'customer_details' => [
+                'first_name' => 'Test User',
+                'email' => 'test@gravenue.com',
+                'phone' => '081234567890',
+            ],
+        ];
+
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Midtrans integration working!',
+            'snap_token' => $snapToken,
+            'config' => [
+                'server_key' => config('midtrans.server_key'),
+                'client_key' => config('midtrans.client_key'),
+                'is_production' => config('midtrans.is_production'),
+            ]
+        ]);
+    } catch (Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'config' => [
+                'server_key' => config('midtrans.server_key'),
+                'client_key' => config('midtrans.client_key'),
+                'is_production' => config('midtrans.is_production'),
+            ]
+        ], 500);
+    }
+})->name("test.midtrans");
+
 // Admin routes
 Route::prefix("admin")
     ->name("admin.")
