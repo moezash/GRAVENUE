@@ -1,0 +1,1 @@
+<div class="footer"><p>&copy; {{ date('Y') }} Gravenue - SMKN 4 Malang</p></div>

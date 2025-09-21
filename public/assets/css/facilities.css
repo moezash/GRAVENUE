@@ -1,0 +1,823 @@
+/* Facilities Page Styles */
+
+.page-header {
+    margin-top: 80px;
+    padding: 6rem 0 4rem;
+    background: linear-gradient(135deg, #1b1f3a 0%, #53354a 100%);
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 80%;
+    height: 150%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 120, 68, 0.1) 0%,
+        transparent 70%
+    );
+    z-index: 1;
+}
+
+.page-header .container {
+    position: relative;
+    z-index: 2;
+}
+
+.page-header h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.page-header p {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Improved Filters */
+.filters {
+    padding: 3rem 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    position: relative;
+}
+
+.filters::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        #ddd 50%,
+        transparent 100%
+    );
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.filter-btn {
+    padding: 0.8rem 1.5rem;
+    border: 2px solid #53354a;
+    background: transparent;
+    color: #53354a;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: #53354a;
+    color: white;
+}
+
+/* Enhanced Facilities Grid */
+.facilities-grid {
+    padding: 4rem 0;
+    background: #f8f9fa;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 2.5rem;
+    align-items: stretch;
+    padding: 0;
+    margin: 0;
+}
+
+.facility-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.facility-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff7844 0%, #53354a 100%);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.facility-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.facility-card:hover::before {
+    transform: scaleX(1);
+}
+
+.facility-image {
+    position: relative;
+    overflow: hidden;
+    height: 280px;
+}
+
+.facility-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.facility-card:hover .facility-image img {
+    transform: scale(1.08);
+}
+
+.facility-status {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.facility-status.available {
+    background: rgba(40, 167, 69, 0.9);
+    color: white;
+}
+
+.facility-status.unavailable {
+    background: rgba(220, 53, 69, 0.9);
+    color: white;
+}
+
+.facility-info {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.facility-info h3 {
+    color: #1b1f3a;
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+}
+
+.facility-description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.facility-details {
+    margin-bottom: 1.5rem;
+    min-height: 120px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.detail-item i {
+    color: #ff7844;
+    width: 20px;
+    margin-right: 0.8rem;
+}
+
+.facility-actions {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: auto;
+}
+
+.btn-primary {
+    flex: 1;
+    background: #ff7844;
+    color: white;
+    border: none;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+}
+
+.btn-primary:hover {
+    background: #e6693a;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #53354a;
+    border: 2px solid #53354a;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+}
+
+.btn-secondary:hover {
+    background: #53354a;
+    color: white;
+}
+
+/* Facility Detail Page Styles - New Design */
+.facility-detail-section {
+    margin-top: 80px;
+    padding: 3rem 0;
+    background: #ffffff;
+}
+
+.facility-detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.facility-image-container {
+    background: #f8f9fa;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.facility-main-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.facility-info-container {
+    padding: 2rem 0;
+}
+
+.facility-title {
+    font-size: 2.5rem;
+    color: #1b1f3a;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.facility-category-badge {
+    margin-bottom: 2rem;
+}
+
+.category-tag {
+    background: #ff7844;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.facility-description h3,
+.facility-specifications h3 {
+    color: #1b1f3a;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.facility-description {
+    margin-bottom: 2rem;
+}
+
+.facility-description p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.spec-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #ff7844;
+}
+
+.spec-icon {
+    width: 40px;
+    height: 40px;
+    background: #ff7844;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1rem;
+}
+
+.spec-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.spec-label {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 0.2rem;
+}
+
+.spec-value {
+    font-size: 1rem;
+    color: #1b1f3a;
+    font-weight: 600;
+}
+
+.facility-actions {
+    margin-top: 2rem;
+}
+
+.btn-book-facility,
+.btn-login-required {
+    background: #ff7844;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-book-facility:hover,
+.btn-login-required:hover {
+    background: #e5673a;
+    transform: translateY(-2px);
+}
+
+.btn-unavailable {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: not-allowed;
+}
+
+/* Pricing Section */
+.pricing-section {
+    padding: 3rem 0;
+    background: #f8f9fa;
+}
+
+.pricing-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.price-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.price-amount {
+    font-size: 2.5rem;
+    color: #ff7844;
+    font-weight: 700;
+}
+
+.price-period {
+    color: #666;
+    font-size: 1rem;
+    margin-left: 0.5rem;
+}
+
+.price-features {
+    margin-bottom: 2rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.feature-item:last-child {
+    border-bottom: none;
+}
+
+.feature-item i {
+    color: #ff7844;
+    width: 20px;
+}
+
+.btn-book-now,
+.btn-login-first {
+    width: 100%;
+    background: #ff7844;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-book-now:hover,
+.btn-login-first:hover {
+    background: #e5673a;
+}
+
+/* Contact Help Section */
+.contact-help-section {
+    padding: 3rem 0;
+    background: white;
+}
+
+.contact-help-card {
+    background: #f8f9fa;
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-help-card h3 {
+    color: #1b1f3a;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.contact-info {
+    display: grid;
+    gap: 1rem;
+}
+
+.contact-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 10px;
+    border-left: 4px solid #ff7844;
+}
+
+.contact-label {
+    font-weight: 600;
+    color: #1b1f3a;
+}
+
+.contact-value {
+    color: #666;
+}
+
+.facility-detail-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.facility-image-detail {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.facility-image-detail img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.facility-image-detail:hover img {
+    transform: scale(1.05);
+}
+
+.facility-status-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 25px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    backdrop-filter: blur(10px);
+}
+
+.status-indicator.available {
+    background: rgba(40, 167, 69, 0.9);
+    color: white;
+}
+
+.status-indicator.unavailable {
+    background: rgba(220, 53, 69, 0.9);
+    color: white;
+}
+
+.facility-info-detail {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+}
+
+.facility-header h1 {
+    font-size: 2.5rem;
+    color: #1b1f3a;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.facility-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #ff7844;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+
+.facility-description-detail h3,
+.facility-specs h3 {
+    color: #1b1f3a;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.facility-description-detail {
+    margin-bottom: 2.5rem;
+}
+
+.facility-description-detail p {
+    color: #666;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.spec-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 15px;
+    border-left: 4px solid #ff7844;
+    transition: all 0.3s;
+}
+
+.spec-item:hover {
+    background: #e8f4f8;
+    transform: translateX(5px);
+}
+
+.spec-item i {
+    font-size: 1.5rem;
+    color: #ff7844;
+    width: 24px;
+}
+
+.spec-item div {
+    display: flex;
+    flex-direction: column;
+}
+
+.spec-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.2rem;
+}
+
+.spec-value {
+    font-size: 1.1rem;
+    color: #1b1f3a;
+    font-weight: 600;
+}
+
+.facility-actions-detail {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-book-now {
+    flex: 1;
+    background: linear-gradient(135deg, #ff7844 0%, #e5673a 100%);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+    min-height: 50px;
+}
+
+.btn-book-now:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 120, 68, 0.3);
+}
+
+.btn-unavailable {
+    flex: 1;
+    background: #6c757d;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: not-allowed;
+    min-height: 50px;
+}
+
+.btn-login-first {
+    flex: 1;
+    background: #53354a;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+    min-height: 50px;
+}
+
+.btn-login-first:hover {
+    background: #3d263a;
+    transform: translateY(-2px);
+}
+
+.btn-back {
+    background: transparent;
+    color: #53354a;
+    border: 2px solid #53354a;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+    min-height: 50px;
+}
+
+.btn-back:hover {
+    background: #53354a;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .facility-actions {
+        flex-direction: column;
+    }
+
+    .filter-buttons {
+        justify-content: center;
+    }
+
+    .filter-btn {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+    }
+
+    .facility-detail-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .facility-image-detail img {
+        height: 300px;
+    }
+
+    .facility-info-detail {
+        padding: 2rem;
+    }
+
+    .facility-header h1 {
+        font-size: 2rem;
+    }
+
+    .specs-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .facility-actions-detail {
+        flex-direction: column;
+    }
+}

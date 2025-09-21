@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midtrans Payment Integration - Gravenue</title>
+    
+    <!-- Bootstrap CSS untuk styling yang lebih baik -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Midtrans Snap.js Library -->
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-1uhZ2s9_JbXO-85Y"></script>
+    
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .payment-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .btn-pay {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-pay:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .loading {
+            display: none;
+        }
+        
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Header -->
+                <div class="text-center mt-5">
+                    <h1 class="display-4 text-primary">Gravenue Payment</h1>
+                    <p class="lead">Integrasi Midtrans Sandbox untuk Testing Pembayaran</p>
+                </div>
+                
+                <!-- Form Pembayaran -->
+                <div class="payment-card">
+                    <h3 class="text-center mb-4">Detail Pembayaran</h3>
+                    
+                    <form id="paymentForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="customerName" class="form-label">Nama Lengkap</label>
+                                <input type="text" class="form-control" id="customerName" value="John Doe" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="customerEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="customerEmail" value="john@example.com" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="customerPhone" class="form-label">Nomor Telepon</label>
+                                <input type="tel" class="form-control" id="customerPhone" value="081234567890" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="amount" class="form-label">Jumlah Pembayaran (Rp)</label>
+                                <input type="number" class="form-control" id="amount" value="100000" min="10000" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="description" class="form-label">Deskripsi</label>
+                            <input type="text" class="form-control" id="description" value="Pembayaran Fasilitas Gravenue" readonly>
+                        </div>
+                        
+                        <!-- Tombol Bayar -->
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary btn-pay btn-lg" id="payButton">
+                                <i class="fas fa-credit-card me-2"></i>
+                                Bayar Sekarang
+                            </button>
+                            
+                            <!-- Loading indicator -->
+                            <div class="loading mt-3">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p class="mt-2">Sedang memproses pembayaran...</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Info Sandbox -->
+                <div class="alert alert-info mt-4">
+                    <h5><i class="fas fa-info-circle"></i> Informasi Testing Sandbox</h5>
+                    <p class="mb-2"><strong>Kartu Kredit untuk Testing:</strong></p>
+                    <ul class="mb-2">
+                        <li>Nomor Kartu: 4811 1111 1111 1114</li>
+                        <li>Expired: 01/25</li>
+                        <li>CVV: 123</li>
+                    </ul>
+                    <p class="mb-0"><strong>E-Wallet:</strong> Gunakan GoPay, DANA, atau OVO untuk testing</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome untuk icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <script>
+        /**
+         * JavaScript untuk menangani proses pembayaran Midtrans
+         * Fungsi ini akan memanggil checkout.php untuk mendapatkan snap token
+         * kemudian membuka popup Midtrans untuk proses pembayaran
+         */
+        
+        // Ambil elemen-elemen yang diperlukan
+        const payButton = document.getElementById('payButton');
+        const loadingDiv = document.querySelector('.loading');
+        const paymentForm = document.getElementById('paymentForm');
+        
+        // Event listener untuk tombol bayar
+        payButton.addEventListener('click', function() {
+            // Validasi form
+            if (!paymentForm.checkValidity()) {
+                paymentForm.reportValidity();
+                return;
+            }
+            
+            // Tampilkan loading
+            showLoading(true);
+            
+            // Ambil data dari form
+            const paymentData = {
+                order_id: 'ORDER-' + Date.now(), // Generate unique order ID
+                gross_amount: parseInt(document.getElementById('amount').value),
+                customer_name: document.getElementById('customerName').value,
+                customer_email: document.getElementById('customerEmail').value,
+                customer_phone: document.getElementById('customerPhone').value
+            };
+            
+            // Kirim request ke checkout.php untuk mendapatkan snap token
+            fetch('checkout.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(paymentData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                showLoading(false);
+                
+                if (data.error) {
+                    // Jika ada error, tampilkan pesan error
+                    alert('Error: ' + data.message);
+                    console.error('Payment Error:', data);
+                } else {
+                    // Jika sukses, buka Midtrans Snap popup
+                    window.snap.pay(data.snap_token, {
+                        // Callback ketika pembayaran berhasil
+                        onSuccess: function(result) {
+                            console.log('Payment Success:', result);
+                            alert('Pembayaran berhasil! Order ID: ' + result.order_id);
+                            
+                            // Di sini Anda bisa redirect ke halaman success
+                            // atau update status pembayaran di database
+                        },
+                        
+                        // Callback ketika pembayaran pending
+                        onPending: function(result) {
+                            console.log('Payment Pending:', result);
+                            alert('Pembayaran pending. Silakan selesaikan pembayaran Anda.');
+                        },
+                        
+                        // Callback ketika pembayaran error
+                        onError: function(result) {
+                            console.log('Payment Error:', result);
+                            alert('Pembayaran gagal. Silakan coba lagi.');
+                        },
+                        
+                        // Callback ketika popup ditutup
+                        onClose: function() {
+                            console.log('Payment popup closed');
+                            alert('Anda menutup popup pembayaran sebelum menyelesaikan pembayaran.');
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                showLoading(false);
+                console.error('Fetch Error:', error);
+                alert('Terjadi kesalahan saat memproses pembayaran. Silakan coba lagi.');
+            });
+        });
+        
+        /**
+         * Fungsi untuk menampilkan/menyembunyikan loading indicator
+         * @param {boolean} show - true untuk menampilkan, false untuk menyembunyikan
+         */
+        function showLoading(show) {
+            if (show) {
+                payButton.style.display = 'none';
+                loadingDiv.style.display = 'block';
+            } else {
+                payButton.style.display = 'inline-block';
+                loadingDiv.style.display = 'none';
+            }
+        }
+        
+        /**
+         * Format input amount dengan pemisah ribuan
+         */
+        document.getElementById('amount').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value) {
+                e.target.value = parseInt(value);
+            }
+        });
+        
+        // Log informasi untuk debugging
+        console.log('Midtrans Integration loaded successfully');
+        console.log('Client Key:', 'Mid-client-1uhZ2s9_JbXO-85Y');
+        console.log('Environment: Sandbox');
+    </script>
+</body>
+</html>
